@@ -4,6 +4,11 @@ import { House } from "@/models/House.js";
 import { AppState } from "@/AppState.js";
 
 class HousesService {
+    async deleteHouse(houseId) {
+        const response = await api.delete(`api/houses/${houseId}`)
+        const index = AppState.houses.findIndex(house => house.id == houseId)
+        AppState.houses.splice(index, 1)
+    }
     async createHouse(formData) {
         const response = await api.post('api/houses', formData)
         const house = new House(response.data)
