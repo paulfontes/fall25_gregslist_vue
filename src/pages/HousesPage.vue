@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import HouseForm from '@/components/HouseForm.vue';
 import HouseListing from '@/components/HouseListing.vue';
 import { housesService } from '@/services/HousesService.js';
 import { logger } from '@/utils/Logger.js';
@@ -27,8 +28,11 @@ async function getHouses(){
 <template>
     <div class="container-fluid mt-5">
         <div class="row g-3">
+            <div class="col-12">
+                <HouseForm />
+            </div>
             <div v-for="house in houses" :key="house.id" class="col-md-6">
-                <HouseListing :houseProp="house" />
+                <HouseListing :houseProp="house"/>
             </div>
         </div>
     </div>

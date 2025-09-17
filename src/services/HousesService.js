@@ -4,6 +4,10 @@ import { House } from "@/models/House.js";
 import { AppState } from "@/AppState.js";
 
 class HousesService {
+    async createHouse(formData) {
+        const response = await api.post('api/houses', formData)
+        logger.log('created Car', response.data)
+    }
     async getCars() {
         const response = await api.get('api/houses')
         const house = response.data.map((pojo) => new House(pojo))
