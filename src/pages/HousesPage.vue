@@ -9,6 +9,7 @@ import { Identity } from '@bcwdev/auth0provider-client';
 import { computed, onMounted } from 'vue';
 
 const houses = computed(()=> AppState.houses)
+const account = computed(()=> AppState.account)
 
 onMounted(()=> getHouses())
 
@@ -29,7 +30,7 @@ async function getHouses(){
 <template>
     <div class="container-fluid mt-5">
         <div class="row g-3">
-            <div class="col-12">
+            <div v-if="account" class="col-12">
                 <HouseForm />
             </div>
             <div v-for="house in houses" :key="house.id" class="col-md-6">
