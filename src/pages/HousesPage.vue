@@ -1,13 +1,22 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { housesService } from '@/services/HousesService.js';
 import { logger } from '@/utils/Logger.js';
-import { onMounted } from 'vue';
+import { Pop } from '@/utils/Pop.js';
+import { computed, onMounted } from 'vue';
 
+const houses = computed(()=> AppState.houses)
 
-onMounted(()=> AppState.houses)
+onMounted(()=> getHouses())
 
 async function getHouses(){
-    logger.log('getting houses')
+    try {
+      await housesService.getCars()
+    }
+    catch (error){
+      Pop.error(error);
+      logger.error('Got an Error Getting the Cars!!', error)
+    }
 }
 
 
@@ -15,7 +24,7 @@ async function getHouses(){
 
 
 <template>
-Houses
+{{ houses }}
 </template>
 
 
