@@ -1,13 +1,24 @@
 <script setup>
+import { AppState } from '@/AppState.js';
 import { House } from '@/models/House.js';
 import { housesService } from '@/services/HousesService.js';
 import { Pop } from '@/utils/Pop.js';
+import { computed } from 'vue';
+
+
+const account = computed(()=> AppState.account)
 
 const props = defineProps({
     houseProp: {type: House, required: true}
 })
 
 async function deleteHouse() {
+    const confirmed = await Pop.confirm('Are you sure you want to delete a this house?', 'It will be gone forever', 'Yes', 'No')
+
+    if (!confirmed) {
+        return
+    }
+    
     try {
       await housesService.deleteHouse(props.houseProp.id)
     }
@@ -29,7 +40,7 @@ async function deleteHouse() {
         <p>House Levels: {{ houseProp.levels }}</p>
         <p>{{ houseProp.description }}</p>
         <div class="position-absolute top-0 end-0">
-            <button @click="deleteHouse()" class="btn btn-outline-danger">Delete</button>
+            <button v-if="account?.id == houseProp.creatorId" @click="deleteHouse()" class="btn btn-outline-danger">Delete</button>
         </div>
     </div>
 </template>

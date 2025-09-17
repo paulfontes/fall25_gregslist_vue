@@ -21,6 +21,17 @@ const editableHouseData = ref({
 async function createHouse() {
     try {
         await housesService.createHouse(editableHouseData.value)
+        
+    editableHouseData.value = {
+    bathrooms: 0,
+    bedrooms: 0,
+    year: new Date().getFullYear,
+    price: 0,
+    levels: 0,
+    imgUrl: '',
+    description: ''
+    
+}
       
     }
     catch (error){
