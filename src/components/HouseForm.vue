@@ -61,6 +61,10 @@ async function createHouse() {
                 <input v-model="editableHouseData.imgUrl" type="url" id="house-picture" required>
             </div>
             <div class="col-4">
+                <label for="house-year">Year: </label>
+                <input v-model="editableHouseData.year" type="number" id="house-year" required>
+            </div>
+            <div class="col-4">
                 <label for="house-description">Description:</label>
                 <textarea id="house-description" v-model="editableHouseData.description" name=""></textarea>
             </div>
